@@ -1,0 +1,71 @@
+@use "sass:math"; // Import module math
+
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// 1. Container (Tương tự .container của Bootstrap)
+.#{$prefix}container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: math.div($grid-gutter-width, 2);
+  padding-left: math.div($grid-gutter-width, 2);
+  
+  @include res(md) { max-width: 720px; }
+  @include res(lg) { max-width: 960px; }
+  @include res(xl) { max-width: 1140px; }
+}
+
+// 2. Row (Hàng - Tương tự .row)
+.#{$prefix}row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: math.div($grid-gutter-width, 2);
+  margin-left: math.div($grid-gutter-width, 2);
+}
+
+// 3. Column (Cột - Tương tự .col)
+.#{$prefix}col {
+  flex: 1;
+  padding-right: math.div($grid-gutter-width, 2);
+  padding-left: math.div($grid-gutter-width, 2);
+}
+
+// 4. Grid Columns (Tương tự col-1 đến col-12)
+@for $i from 1 through $grid-columns {
+  .#{$prefix}col-#{$i} {
+    flex: 0 0 math.percentage(math.div($i, $grid-columns));
+    max-width: math.percentage(math.div($i, $grid-columns));
+  }
+}
+
+// 5. Responsive Grid (col-sm-6, col-md-4, col-lg-3...)
+$breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px);
+@each $bp, $size in $breakpoints {
+  @include res($bp) {
+    @for $i from 1 through $grid-columns {
+      .#{$prefix}col-#{$bp}-#{$i} {
+        flex: 0 0 math.percentage(math.div($i, $grid-columns));
+        max-width: math.percentage(math.div($i, $grid-columns));
+      }
+    }
+  }
+}
+
+// 6. Offset (Dịch cột - Tương tự offset-1 đến offset-11)
+@for $i from 1 through ($grid-columns - 1) {
+  .#{$prefix}offset-#{$i} {
+    margin-left: math.percentage(math.div($i, $grid-columns));
+  }
+}
+
+// 7. Responsive Offset (offset-md-3, offset-lg-2...)
+@each $bp, $size in $breakpoints {
+  @include res($bp) {
+    @for $i from 1 through ($grid-columns - 1) {
+      .#{$prefix}offset-#{$bp}-#{$i} {
+        margin-left: math.percentage(math.div($i, $grid-columns));
+      }
+    }
+  }
+}

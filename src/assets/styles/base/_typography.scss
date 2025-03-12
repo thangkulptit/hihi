@@ -1,0 +1,58 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as *;
+@use "./reset" as *;
+
+.#{$prefix}text {
+  color: var(--neutral-800);
+  &-bold {
+    font-weight: bold;
+  }
+  &-large {
+    @extend h1;
+  }
+  &-medium {
+    @extend h2;
+  }
+  &-small {
+    @extend h3;
+  }
+  &-heading {
+    @extend h4;
+  }
+  &-sub-heading {
+    @extend h5;
+  }
+  &-body-large {
+    @include typography($font-regular, $font-size-large-mobile, $line-height-large-mobile);
+    @include res(lg) {
+      @include typography($font-regular, $font-size-large, $line-height-large);
+    }
+  }
+  &-body-emphasis {
+    @extend h6;
+  }
+  &-body-medium {
+    @include typography($font-regular, $font-size-base-mobile, $line-height-base-mobile);
+    @include res(lg) {
+      @include typography($font-regular, $font-size-base, $line-height-base);
+    }
+  }
+  &-body-medium-bold {
+    @include typography($font-bold, $font-size-base-mobile, $line-height-base-mobile);
+    @include res(lg) {
+      @include typography($font-bold, $font-size-base, $line-height-base);
+    }
+  }
+  &-caption {
+    @include typography($font-regular, $font-size-caption-mobile, $line-height-caption-mobile);
+    @include res(lg) {
+      @include typography($font-regular, $font-size-caption, $line-height-caption);
+    }
+  }
+  &-neutral-600 {
+    color: var(--neutral-600);
+  }
+  &-neutral-800 {
+    color: var(--neutral-800);
+  }
+}

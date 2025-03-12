@@ -1,0 +1,295 @@
+@use "../abstracts/functions" as *;
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as *;
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+ *,
+ *:before,
+ *:after {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -o-box-sizing: border-box;
+   box-sizing: border-box;
+ }
+ 
+ html {
+   line-height: 1.15; /* 1 */
+   -webkit-text-size-adjust: 100%; /* 2 */
+   text-rendering: optimizeLegibility;
+   -webkit-text-size-adjust: 100%;
+   -moz-text-size-adjust: 100%;
+   -ms-text-size-adjust: 100%;
+   text-size-adjust: 100%;
+   -moz-osx-font-smoothing: grayscale;
+   -webkit-font-smoothing: antialiased;
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+   font-family: -apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;
+   background-color: var(--neutral-100);
+ }
+ 
+ /* Sections
+    ========================================================================== */
+ 
+ /**
+  * Remove the margin in all browsers.
+  */
+ 
+ body {
+   margin: 0;
+   min-height: 100vh;
+ }
+ 
+ /**
+  * Render the `main` element consistently in IE.
+  */
+ 
+ main {
+   display: block;
+ }
+ 
+ 
+ /* Grouping content
+    ========================================================================== */
+ 
+ /**
+  * 1. Add the correct box sizing in Firefox.
+  * 2. Show the overflow in Edge and IE.
+  */
+ 
+ hr {
+   box-sizing: content-box; /* 1 */
+   height: 0; /* 1 */
+   overflow: visible; /* 2 */
+   border: 1px solid var(--neutral-200);
+   margin: 0;
+ }
+ 
+ /* Text-level semantics
+    ========================================================================== */
+ 
+ /**
+  * Remove the gray background on active links in IE 10.
+  */
+ 
+ a {
+   background-color: transparent;
+ }
+ 
+ /**
+  * Add the correct font weight in Chrome, Edge, and Safari.
+  */
+ 
+ b,
+ strong {
+   font-weight: bolder;
+ }
+ 
+ /**
+  * Remove the border on images inside links in IE 10.
+  */
+ 
+ img {
+   border-style: none;
+   max-width: 100%;
+ }
+ 
+ /* Forms
+    ========================================================================== */
+ 
+ /**
+  * Show the overflow in IE.
+  * 1. Show the overflow in Edge.
+  */
+ 
+ button,
+ input { /* 1 */
+   overflow: visible;
+ }
+ 
+ /**
+  * Correct the inability to style clickable types in iOS and Safari.
+  */
+ 
+ button,
+ [type="button"],
+ [type="reset"],
+ [type="submit"] {
+   -webkit-appearance: button;
+ }
+ 
+ /**
+  * Remove the inner border and padding in Firefox.
+  */
+ 
+ button::-moz-focus-inner,
+ [type="button"]::-moz-focus-inner,
+ [type="reset"]::-moz-focus-inner,
+ [type="submit"]::-moz-focus-inner {
+   border-style: none;
+   padding: 0;
+ }
+ 
+ /**
+  * Restore the focus styles unset by the previous rule.
+  */
+ 
+ button:-moz-focusring,
+ [type="button"]:-moz-focusring,
+ [type="reset"]:-moz-focusring,
+ [type="submit"]:-moz-focusring {
+   outline: 1px dotted ButtonText;
+ }
+ 
+ /**
+  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+  */
+ 
+ progress {
+   vertical-align: baseline;
+ }
+ 
+ /**
+  * Remove the default vertical scrollbar in IE 10+.
+  */
+ 
+ textarea {
+   overflow: auto;
+ }
+ 
+ /**
+  * 1. Add the correct box sizing in IE 10.
+  * 2. Remove the padding in IE 10.
+  */
+ 
+ [type="checkbox"],
+ [type="radio"] {
+   box-sizing: border-box; /* 1 */
+   padding: 0; /* 2 */
+ }
+ 
+ /**
+  * Correct the cursor style of increment and decrement buttons in Chrome.
+  */
+ 
+ [type="number"]::-webkit-inner-spin-button,
+ [type="number"]::-webkit-outer-spin-button {
+   height: auto;
+ }
+ 
+ /**
+  * 1. Correct the odd appearance in Chrome and Safari.
+  * 2. Correct the outline style in Safari.
+  */
+ 
+ [type="search"] {
+   -webkit-appearance: textfield; /* 1 */
+   outline-offset: -2px; /* 2 */
+ }
+ 
+ /**
+  * Remove the inner padding in Chrome and Safari on macOS.
+  */
+ 
+ [type="search"]::-webkit-search-decoration {
+   -webkit-appearance: none;
+ }
+ 
+ /**
+  * 1. Correct the inability to style clickable types in iOS and Safari.
+  * 2. Change font properties to `inherit` in Safari.
+  */
+ 
+ ::-webkit-file-upload-button {
+   -webkit-appearance: button; /* 1 */
+   font: inherit; /* 2 */
+ }
+ 
+ ol, ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ 
+ // Headings
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6 {
+   margin: 0;
+   padding: 0;
+   color: var(--neutral-800);
+   font-weight: bold;
+ }
+ 
+ p,
+ span {
+   margin: 0;
+   color: var(--neutral-800);
+   @include typography($font-regular, $font-size-base-mobile, $line-height-base-mobile);
+   @include res(lg) {
+     @include typography($font-regular, $font-size-base, $line-height-base);
+   }
+ }
+ 
+ h1 {
+   @include typography($font-bold, $font-size-display-large-mobile, $line-height-display-large-mobile);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-display-large, $line-height-display-large);
+   }
+ }
+ 
+ h2 {
+   @include typography($font-bold, $font-size-display-medium-mobile, $line-height-display-medium-mobile);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-display-medium, $line-height-display-medium);
+   }
+ }
+ 
+ h3 {
+   @include typography($font-bold, $font-size-display-small-mobile, $line-height-display-small);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-display-small, $line-height-display-small);
+   }
+ }
+ 
+ h4 {
+   @include typography($font-bold, $font-size-heading-mobile, $line-height-heading-mobile);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-heading, $line-height-heading);
+   }
+ }
+ 
+ h5 {
+   @include typography($font-bold, $font-size-subheading-mobile, $line-height-subheading-mobile);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-subheading, $line-height-subheading);
+   }
+ }
+ 
+ h6 {
+   @include typography($font-bold, $font-size-base-mobile, $line-height-base-mobile);
+   @include res(lg) {
+     @include typography($font-bold, $font-size-base, $line-height-base);
+   }
+ }
+ 
+ /**
+  * Remove the inheritance of text transform in Edge, Firefox, and IE.
+  * 1. Remove the inheritance of text transform in Firefox.
+  */
+ button,
+ input,
+ select {
+   outline: none;
+   text-transform: none;
+ }
+ 

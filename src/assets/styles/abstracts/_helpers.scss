@@ -1,0 +1,84 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+// Utility Classes
+@include block("relative") { position: relative; }
+@include block("absolute") { position: absolute; }
+@include block("fixed") { position: fixed; }
+@include block("d-block") { display: block; }
+@include block("pointer") { cursor: pointer; }
+@include block("is-capitalized") { text-transform: capitalize; }
+@include block("is-lowercase") { text-transform: lowercase; }
+@include block("is-uppercase") { text-transform: uppercase; }
+@include block("w-100") { width: 100%; }
+@include block("h-100") { height: 100%; }
+@include block("mh-100vh") { min-height: 100vh; }
+
+// Typography Alignments
+$alignments: ('center': center, 'justify': justify, 'left': left, 'right': right);
+@each $alignment, $text-align in $alignments {
+  .#{$prefix}text-#{$alignment} {
+    text-align: #{$text-align};
+  }
+}
+
+// Flex Utilities
+.#{$prefix}flex {
+  display: flex;
+  &-inline { display: inline-flex; }
+  &-grow { flex: 1 0 auto; }
+  &-basis { flex: 0 0 auto; }
+  &-wrap { flex-wrap: wrap; }
+  &-nowrap { flex-wrap: nowrap; }
+  &-items-center { align-items: center; }
+  &-items-stretch { align-items: stretch; }
+  &-items-baseline { align-items: baseline; }
+  &-justify-center { justify-content: center; }
+  &-justify-start { justify-content: flex-start; }
+  &-justify-end { justify-content: flex-end; }
+  &-justify-between { justify-content: space-between; }
+  &-direction-column { flex-direction: column; }
+  &-align-center { align-items: center; }
+  &-align-baseline { align-items: baseline; }
+  &-align-end { align-items: flex-end; }
+  &-align-start { align-items: flex-start; }
+}
+
+// Spacing Utilities (Margin & Padding)
+$spacings: (xs: 4px, sm: 8px, md: 16px, lg: 24px, xl: 32px);
+@each $spacing, $value in $spacings {
+  .#{$prefix}p-#{$spacing} { padding: #{$value}; }
+  .#{$prefix}pt-#{$spacing} { padding-top: #{$value}; }
+  .#{$prefix}pb-#{$spacing} { padding-bottom: #{$value}; }
+  .#{$prefix}py-#{$spacing} { padding-top: #{$value}; padding-bottom: #{$value}; }
+  .#{$prefix}pl-#{$spacing} { padding-left: #{$value}; }
+  .#{$prefix}pr-#{$spacing} { padding-right: #{$value}; }
+  .#{$prefix}px-#{$spacing} { padding-left: #{$value}; padding-right: #{$value}; }
+
+  .#{$prefix}m-#{$spacing} { margin: #{$value}; }
+  .#{$prefix}mt-#{$spacing} { margin-top: #{$value}; }
+  .#{$prefix}mb-#{$spacing} { margin-bottom: #{$value}; }
+  .#{$prefix}my-#{$spacing} { margin-top: #{$value}; margin-bottom: #{$value}; }
+  .#{$prefix}ml-#{$spacing} { margin-left: #{$value}; }
+  .#{$prefix}mr-#{$spacing} { margin-right: #{$value}; }
+  .#{$prefix}mx-#{$spacing} { margin-left: #{$value}; margin-right: #{$value}; }
+}
+
+// Auto Margin
+.#{$prefix}ml-auto { margin-left: auto; }
+.#{$prefix}mr-auto { margin-right: auto; }
+
+// Background Colors
+.#{$prefix}bg-neutral-100 { background-color: var(--neutral-100); }
+
+// Position & Overflow
+.#{$prefix}sticky { position: sticky; top: 0; left: 0; z-index: $z-index-highest; }
+.#{$prefix}overflow-hidden { overflow: hidden; }
+
+// Hide & Scrollbar
+.#{$prefix}hide { display: none; }
+.#{$prefix}scrollbar {
+  &::-webkit-scrollbar-track { background-color: transparent; }
+  &::-webkit-scrollbar { width: 6px; background-color: transparent; }
+  &::-webkit-scrollbar-thumb { border-radius: 3px; background-color: rgba(82, 92, 101, 0.3); }
+}

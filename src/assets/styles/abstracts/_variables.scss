@@ -1,0 +1,160 @@
+// Prefix cho class (có thể đổi theo dự án)
+$prefix: "m-";
+
+// z-index
+$z-index-min: -1 !default;
+$z-index-low: 9 !default;
+$z-index-medium: 10 !default;
+$z-index-high: 99 !default;
+$z-index-highest: 1000 !default;
+
+// Grid
+$grid-columns: 12; // Số cột tối đa (12 giống Bootstrap)
+$grid-gutter-width: 30px; // Khoảng cách giữa các cột
+
+/* Typography
+-------------------------- */
+$font-regular: 400;
+$font-bold: 700;
+
+$font-size-caption-mobile: 13px;
+$line-height-caption-mobile: 18px;
+$font-size-caption: 12px;
+$line-height-caption: 16px;
+
+$font-size-base-mobile: 15px;
+$line-height-base-mobile: 22px;
+$font-size-base: 14px;
+$line-height-base: 20px;
+
+$font-size-large-mobile: 17px;
+$line-height-large-mobile: 26px;
+$font-size-large: 16px;
+$line-height-large: 22px;
+
+$font-size-subheading-mobile: 13px;
+$line-height-subheading-mobile: 16px;
+$font-size-subheading: 12px;
+$line-height-subheading: 18px;
+
+$font-size-heading-mobile: 17px;
+$line-height-heading-mobile: 22px;
+$font-size-heading: 16px;
+$line-height-heading: 20px;
+
+$font-size-display-small-mobile: 19px;
+$line-height-display-small-mobile: 24px;
+$font-size-display-small: 20px;
+$line-height-display-small: 26px;
+
+$font-size-display-medium-mobile: 21px;
+$line-height-display-medium-mobile: 26px;
+$font-size-display-medium: 23px;
+$line-height-display-medium: 28px;
+
+$font-size-display-large-mobile: 25px;
+$line-height-display-large-mobile: 32px;
+$font-size-display-large: 28px;
+$line-height-display-large: 34px;
+
+$icons: (
+  'small': 12px,
+  'medium': 16px,
+  'large': 24px,
+);
+
+//border radius
+$border-radius-small: 6px !default;
+$border-radius-medium: 10px !default;
+$border-radius-large: 12px !default;
+
+/* checkbox/radios
+-------------------------- */
+// custom checkbox/radios
+$sb-checkbox-height: 18px !default;
+$sb-checkbox-width: $sb-checkbox-height !default;
+$sb-checkbox-border-width: 1px !default;
+$sb-checkbox-border-radius: null !default;
+
+//arrow size
+$popover-arrow-size: 4px !default;
+
+
+/* Colors
+-------------------------- */
+$white-color: #fff;
+$black-color: #000;
+
+// Overlay drawer
+$overlay-neutral-1000: #1B1F22;
+$overlay-neutral-600: #5E6A6E;
+
+$light-mode: (
+  blue-1000: #24272E,
+  blue-800: #2B3E64,
+  blue-600: #0096ED,
+  blue-400: #2DB0FA,
+  blue-200: #85D2FF,
+  blue-100: #EBF8FF,
+  neutral-1000: #1B1F22,
+  neutral-800: #363F44,
+  neutral-600: #5E6A6E,
+  neutral-400: #ACB5B9,
+  neutral-200: #E3E7E8,
+  neutral-100: #F7F8F8,
+  neutral-50: #FFFFFF,
+  green-1000: #242E2B,
+  green-800: #255649,
+  green-600: #04B456,
+  green-400: #3EE089,
+  green-200: #9FF9C9,
+  green-100: #ECFEF4,
+  red-1000: #2E2424,
+  red-800: #462121,
+  red-600: #D12E39,
+  red-400: #F2545F,
+  red-200: #FFC2C6,
+  red-100: #FFF5F5,
+  yellow-1000: #2E2824,
+  yellow-800: #7C4C2C,
+  yellow-600: #EEA920,
+  yellow-400: #FCCB69,
+  yellow-200: #FFE0A3,
+  yellow-100: #FFF8EB
+);
+
+$dark-mode: (
+  blue-1000: #EBF8FF,
+  blue-800: #85D2FF,
+  blue-600: #2DB0FA,
+  blue-400: #0096ED,
+  blue-200: #2B3E64,
+  blue-100: #24272E,
+  neutral-1000: #F7F8F8,
+  neutral-800: #E3E7E8,
+  neutral-600: #ACB5B9,
+  neutral-400: #5E6A6E,
+  neutral-200: #363F44,
+  neutral-100: #1B1F22,
+  neutral-50: #282F33,
+  green-1000: #ECFEF4,
+  green-800: #9FF9C9,
+  green-600: #3EE089,
+  green-400: #04B456,
+  green-200: #255649,
+  green-100: #242e2b,
+  red-1000: #fff5f5,
+  red-800: #ffc2c6,
+  red-600: #f2545f,
+  red-400: #d12e39,
+  red-200: #462121,
+  red-100: #2e2424,
+  yellow-1000: #fff8eb,
+  yellow-800: #ffe0a3,
+  yellow-600: #fccb69,
+  yellow-400: #eea920,
+  yellow-200: #7c4c2c,
+  yellow-100: #2e2824,
+);
+
+$popover-arrow-color: rgba(0,0,0,0.02) !default;

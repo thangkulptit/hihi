@@ -6,11 +6,12 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
     "types": ["vite/client"],
     "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
   }
 }
