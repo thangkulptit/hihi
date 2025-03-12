@@ -6,7 +6,7 @@ export default [
     path: '/dashboard',
     name: 'Dashboard',
     meta: { requiresAuth: true }, 
-    component: () => import('@/layouts/Main.vue'),
+    component: () => import('@/layouts/LayoutMain.vue'),
     children: [
       { name: 'DashboardHome', path: 'home', component: Home },
       { name: 'DashboardCard', path: 'card', component: Card },

@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { isDevelopment } from "../utils/helper";
 import { useAuthStore } from "@/modules/auth/store";
 
@@ -11,7 +10,10 @@ export interface HttpInterceptor<V, T> {
    * @param onFulfilled
    * @param onRejected
    */
-  use(onFulfilled?: (value: V) => V | Promise<V>, onRejected?: (error: T) => T): number;
+  use(
+    onFulfilled?: (value: V) => V | Promise<V>,
+    onRejected?: (error: T) => T
+  ): number;
 
   /**
    * Remove an interceptor from the stack
@@ -68,21 +70,39 @@ export interface Http {
     request: HttpInterceptor<HttpRequestOptions, HttpError>;
     response: HttpInterceptor<HttpResponse, HttpError>;
   };
-  request<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
-  get<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
-  post<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
-  put<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
-  delete<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
-  patch<T, R = HttpResponse<T>>(url: string, options?: HttpRequestOptions): Promise<R>;
+  request<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
+  get<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
+  post<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
+  put<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
+  delete<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
+  patch<T, R = HttpResponse<T>>(
+    url: string,
+    options?: HttpRequestOptions
+  ): Promise<R>;
   readonly _context: HttpContext;
 }
 
 export enum HttpMethods {
-  Get = 'GET',
-  Post = 'POST',
-  Put = 'PUT',
-  Delete = 'DELETE',
-  Patch = 'PATCH',
+  Get = "GET",
+  Post = "POST",
+  Put = "PUT",
+  Delete = "DELETE",
+  Patch = "PATCH",
 }
 
 /**
@@ -93,7 +113,10 @@ const createInterceptor = function <V, T>(
   handlers: Array<HttpInterceptorHandler<V, T>>
 ): HttpInterceptor<V, T> {
   return {
-    use(onFulfilled?: (value: V) => V | Promise<V>, onRejected?: (error: T) => T): number {
+    use(
+      onFulfilled?: (value: V) => V | Promise<V>,
+      onRejected?: (error: T) => T
+    ): number {
       handlers.push({
         fulfilled: onFulfilled,
         rejected: onRejected,
@@ -101,7 +124,7 @@ const createInterceptor = function <V, T>(
       return handlers.length - 1;
     },
     eject(id: number): boolean {
-      if (typeof handlers[id] !== 'undefined') {
+      if (typeof handlers[id] !== "undefined") {
         handlers.splice(id, 1);
         return true;
       }
@@ -118,7 +141,7 @@ export function createHttpContext(): HttpContext {
   return {
     http: null as never,
     config: {
-      endpoint: '',
+      endpoint: "",
     },
     interceptors: {
       request: [],
@@ -133,8 +156,8 @@ export function createHttpContext(): HttpContext {
  */
 export function isStream(body: any): boolean {
   return (
-    (typeof ArrayBuffer !== 'undefined' && body instanceof ArrayBuffer) ||
-    (typeof FormData !== 'undefined' && body instanceof FormData)
+    (typeof ArrayBuffer !== "undefined" && body instanceof ArrayBuffer) ||
+    (typeof FormData !== "undefined" && body instanceof FormData)
   );
 }
 
@@ -142,19 +165,26 @@ export function isStream(body: any): boolean {
  * Initial request options
  * @param options
  */
-export function initialRequest(options: HttpRequestOptions = {}): HttpRequestOptions {
+export function initialRequest(
+  options: HttpRequestOptions = {}
+): HttpRequestOptions {
   const init: HttpRequestOptions = {
     method: options.method,
     headers: options.headers || {},
     url: options.url,
   };
 
-  if ((!options.body || !isStream(options.body)) && !init.headers['content-type']) {
-    init.headers['content-type'] = 'application/json';
+  if (
+    (!options.body || !isStream(options.body)) &&
+    !init.headers["content-type"]
+  ) {
+    init.headers["content-type"] = "application/json";
   }
 
   if (options.body) {
-    init.body = isStream(options.body) ? options.body : JSON.stringify(options.body);
+    init.body = isStream(options.body)
+      ? options.body
+      : JSON.stringify(options.body);
   }
 
   return init;
@@ -165,25 +195,29 @@ export function initialRequest(options: HttpRequestOptions = {}): HttpRequestOpt
  * @param response
  * @param responseType
  */
-async function parseResponse<T>(response: Response, responseType: string): Promise<T> {
+async function parseResponse<T>(
+  response: Response,
+  responseType: string
+): Promise<T> {
   let data;
 
   if (response.ok) {
     switch (responseType.toLowerCase()) {
-      case 'json':
+      case "json":
         data = await response.json();
         break;
-      case 'text':
+      case "text":
         data = await response.text();
         break;
-      case 'blob':
+      case "blob":
         data = await response.blob();
         break;
     }
   } else {
     try {
       data = await response.json();
-    } catch (_) {
+    } catch (error) {
+      console.log(error);
       data = undefined;
     }
   }
@@ -214,8 +248,12 @@ export function createHttp(config?: HttpConfig): Http {
 
   const http: Http = (context.http = {
     interceptors: {
-      request: createInterceptor<HttpRequestOptions, HttpError>(context.interceptors.request),
-      response: createInterceptor<HttpResponse, HttpError>(context.interceptors.response),
+      request: createInterceptor<HttpRequestOptions, HttpError>(
+        context.interceptors.request
+      ),
+      response: createInterceptor<HttpResponse, HttpError>(
+        context.interceptors.response
+      ),
     },
     /**
      * Make an http GET request
@@ -288,21 +326,26 @@ export function createHttp(config?: HttpConfig): Http {
       await promise;
 
       // Perform request
-      const rawUrl = requestOptions.url || '/';
-      const requestUrl = rawUrl.startsWith('http') ? rawUrl : `${http.config.endpoint}${rawUrl}`;
+      const rawUrl = requestOptions.url || "/";
+      const requestUrl = rawUrl.startsWith("http")
+        ? rawUrl
+        : `${http.config.endpoint}${rawUrl}`;
       if (config?.debug) {
-        console.log('[HTTP] Url', requestUrl);
-        console.log('[HTTP] Headers', options.headers);
+        console.log("[HTTP] Url", requestUrl);
+        console.log("[HTTP] Headers", options.headers);
       }
 
       return fetch(requestUrl, {
         method: (requestOptions.method || HttpMethods.Get).toUpperCase(),
         body: requestOptions.body,
         headers: requestOptions.headers,
-        credentials: requestOptions.credentials || 'same-origin',
+        credentials: requestOptions.credentials || "same-origin",
       })
         .then(async (response) => {
-          const data = await parseResponse<T>(response, options.responseType || 'json');
+          const data = await parseResponse<T>(
+            response,
+            options.responseType || "json"
+          );
           const result: HttpResponse<T> = {
             data: <T>data,
             status: response.status,
@@ -351,18 +394,16 @@ export function createHttp(config?: HttpConfig): Http {
 // Export instance;
 const http = createHttp({
   endpoint: import.meta.env.VITE_API_BASE_URL,
-  debug: isDevelopment()
-})
+  debug: isDevelopment(),
+});
 
-http.interceptors.request.use(
-  (config) => {
-    const authStore = useAuthStore();
-    if (authStore.accessToken) {
-      config.headers.Authorization = `Bearer ${authStore.accessToken}`;
-    }
-    return config;
-  },
-);
+http.interceptors.request.use((config) => {
+  const authStore = useAuthStore();
+  if (authStore.accessToken) {
+    config.headers.Authorization = `Bearer ${authStore.accessToken}`;
+  }
+  return config;
+});
 
 // http.interceptors.response.use(
 //   (response) => {
@@ -370,7 +411,7 @@ http.interceptors.request.use(
 //       if (response.ok) {
 //         return { success: true, data: response.data }
 //       }
-      
+
 //       throw new Error('Có lỗi gì đó')
 //     } catch (error) {
 //       return {

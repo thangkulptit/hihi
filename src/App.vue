@@ -4,10 +4,6 @@
   </n-message-provider>
 </template>
 
-<script setup>
-
-</script>
-
 <style>
 .container {
   padding: 20px;

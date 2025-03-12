@@ -2,7 +2,7 @@ export default [
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('@/layouts/Main.vue'),
+    component: () => import('@/layouts/LayoutMain.vue'),
     meta: { requiresGuest: true }, // Chưa xác thực mới có thể
     children: [
       { 
