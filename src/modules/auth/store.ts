@@ -40,6 +40,8 @@ export const useAuthStore = defineStore("auth", {
         });
 
         if (response.ok) {
+          this.accessToken = response.data.accessToken;
+          this.refreshToken = response.data.refreshToken;
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("refreshToken", response.data.refreshToken);
           return {
@@ -82,6 +84,8 @@ export const useAuthStore = defineStore("auth", {
         });
 
         if (response.ok) {
+          this.accessToken = response.data.accessToken;
+          this.refreshToken = response.data.refreshToken;
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("refreshToken", response.data.refreshToken);
 
@@ -97,6 +101,27 @@ export const useAuthStore = defineStore("auth", {
           success: false,
           message: error.message,
         };
+      }
+    },
+    async refresh(): Promise<boolean> {
+      try {
+        const response = await http.post<LoginResponse>("/auth/refresh", {
+          body: {
+            refreshToken: this.refreshToken,
+          },
+        });
+
+        if (response.ok) {
+          this.accessToken = response.data.accessToken;
+          this.refreshToken = response.data.refreshToken;
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
+          return true;
+        }
+        return false;
+      } catch (error) {
+        Console.error("Error refreshing token:", error);
+        return false;
       }
     },
   },

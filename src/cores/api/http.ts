@@ -12,7 +12,7 @@ export interface HttpInterceptor<V, T> {
    */
   use(
     onFulfilled?: (value: V) => V | Promise<V>,
-    onRejected?: (error: T) => T
+    onRejected?: (error: T) => Promise<any>
   ): number;
 
   /**
@@ -24,7 +24,7 @@ export interface HttpInterceptor<V, T> {
 
 export interface HttpInterceptorHandler<V, T> {
   fulfilled?(value: V): V | Promise<V>;
-  rejected?(error: T): T | Promise<T>;
+  rejected?(error: T): Promise<any>;
 }
 
 export interface HttpConfig {
@@ -48,6 +48,7 @@ export interface HttpRequestOptions {
   headers?: any;
   responseType?: string;
   credentials?: RequestCredentials;
+  _retry?: boolean;
 }
 
 export interface HttpResponse<T = any> {
@@ -62,6 +63,7 @@ export interface HttpError<T = any> {
   name: string;
   message: string;
   response?: HttpResponse<T>;
+  config?: HttpRequestOptions;
 }
 
 export interface Http {
@@ -115,7 +117,7 @@ const createInterceptor = function <V, T>(
   return {
     use(
       onFulfilled?: (value: V) => V | Promise<V>,
-      onRejected?: (error: T) => T
+      onRejected?: (error: T) => Promise<any>
     ): number {
       handlers.push({
         fulfilled: onFulfilled,
@@ -405,20 +407,65 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
-// http.interceptors.response.use(
-//   (response) => {
-//     try {
-//       if (response.ok) {
-//         return { success: true, data: response.data }
-//       }
+let isRefreshing = false;
+let failedQueue: Array<{
+  resolve: (value: unknown) => void;
+  reject: (reason?: any) => void;
+}> = [];
 
-//       throw new Error('Có lỗi gì đó')
-//     } catch (error) {
-//       return {
-//         success: false, data: response.data
-//       }
-//     }
-//   },
-// );
+const processQueue = (error: any = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(null);
+    }
+  });
+  failedQueue = [];
+};
+
+http.interceptors.response.use(
+  (response) => response,
+  async (error: HttpError) => {
+    if (!error.config?.url) return Promise.reject(error);
+
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(() => http.request(originalRequest.url!, originalRequest))
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const authStore = useAuthStore();
+      const success = await authStore.refresh();
+
+      if (success) {
+        processQueue();
+        try {
+          const response = await http.request(
+            originalRequest.url!,
+            originalRequest
+          );
+          return response;
+        } catch (err) {
+          return Promise.reject(err);
+        }
+      } else {
+        processQueue(error);
+        window.location.href = "/auth/login";
+        return Promise.reject(error);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default http as Http;

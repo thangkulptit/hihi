@@ -13,5 +13,13 @@
     "types": ["vite/client"],
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": [
+    "eslint.config.js",
+    "postcss.config.js",
+    "scripts/verifyCommit.js",
+    "tailwind.config.js",
+    "node_modules"
+  ]
 }

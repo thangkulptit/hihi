@@ -1,15 +1,15 @@
-import Card from './views/Card.vue'
-import Home from './views/Home.vue'
+import DashboardHome from "./views/DBHome.vue";
+import DashboardCard from "./views/DBCard.vue";
 
 export default [
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    meta: { requiresAuth: true }, 
-    component: () => import('@/layouts/LayoutMain.vue'),
+    path: "/dashboard",
+    name: "Dashboard",
+    meta: { requiresAuth: true },
+    component: () => import("@/layouts/LayoutMain.vue"),
     children: [
-      { name: 'DashboardHome', path: 'home', component: Home },
-      { name: 'DashboardCard', path: 'card', component: Card },
-    ]
+      { name: "DashboardHome", path: "home", component: DashboardHome },
+      { name: "DashboardCard", path: "card", component: DashboardCard },
+    ],
   },
-]
+];
