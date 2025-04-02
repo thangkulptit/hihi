@@ -7,6 +7,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@dashboard/*": ["src/modules/dashboard/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -18,8 +20,8 @@
   "exclude": [
     "eslint.config.js",
     "postcss.config.js",
+    "i18n.config.js",
     "scripts/verifyCommit.js",
-    "tailwind.config.js",
     "node_modules"
   ]
 }

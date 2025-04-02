@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-gray-50">
+  <div class="m-login">
     <div class="w-full max-w-md space-y-8 rounded-lg bg-white p-6 shadow-lg">
       <div class="text-center">
         <h2 class="text-3xl font-bold text-gray-900">
@@ -59,7 +59,7 @@
             text
             type="primary"
           >
-            Quên mật khẩu?
+            {{ $t("label.forgotPassword") }}
           </n-button>
         </div>
 
@@ -70,7 +70,7 @@
           :loading="loading"
           @click="login"
         >
-          Đăng nhập
+          {{ $t("label.signIn") }}
         </n-button>
       </n-form>
 
@@ -95,13 +95,17 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../store";
 import { useMessage } from "naive-ui";
+import { useI18n } from 'vue-i18n-lite';
 import type { FormInst } from "naive-ui";
 
 const router = useRouter();
 const authStore = useAuthStore();
+const { t, locale } = useI18n();
 const notify = useMessage();
 const formRef = ref<FormInst | null>(null);
 const loading = ref(false);
+
+console.log(t("label.signIn"))
 
 const form = ref({
   email: "",
@@ -143,6 +147,8 @@ const login = async () => {
 
 <style lang="scss">
 .m-login {
-  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

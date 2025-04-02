@@ -1,0 +1,16 @@
+{
+  "button": {
+    "add": "Add",
+    "edit": "Edit",
+    "remove": "Remove"
+  },
+  "label": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "SignIn",
+    "signUp": "SignUp",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password",
+    "loginToAccessAcc": "Log in to access your account"
+  }
+}

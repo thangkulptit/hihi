@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     vue(),
     svgLoader(),
-  ], // Hỗ trợ Vue và SVG
-  base: '/', // Tương đương với `publicPath`
+  ],
+  base: '/',
   build: {
     outDir: 'build', // Tương đương với `outputDir`
   },
@@ -22,6 +22,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@styles': path.resolve(__dirname, 'src/assets/styles'),
+      "@auth": path.resolve(__dirname, 'src/modules/auth'),
+      "@dashboard": path.resolve(__dirname, 'src/modules/dashboard'),
     }
   },
 });

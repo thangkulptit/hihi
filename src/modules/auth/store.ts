@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import http from "@/cores/api/http";
-import { StatusResponse } from "@/cores/types/http.type";
-import { decodeJWT } from "@/cores/utils/helper";
-import { Console } from "@/cores/utils/logger";
+import { StatusResponse } from "@/cores/types/http";
+import { decodeJWT, Console } from "@/cores/utils";
+import { LoginPayload, LoginResponse, RegisterUserPayload } from "./types";
 
 interface AuthState {
   accessToken: string;
@@ -127,18 +127,4 @@ export const useAuthStore = defineStore("auth", {
   },
 });
 
-export interface LoginPayload {
-  email: string;
-  password: string;
-  remember: boolean;
-}
 
-export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export interface RegisterUserPayload {
-  email: string;
-  password: string;
-}

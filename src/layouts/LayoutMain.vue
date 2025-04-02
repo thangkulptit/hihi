@@ -61,9 +61,47 @@
           </div>
         </n-layout-header>
 
-        <n-layout class="m-flex m-flex-items-center m-flex-justify-center">
+        <n-layout
+          class="m-flex m-flex-items-center m-flex-justify-center"
+          :has-sider="isDashboardRouter"
+        >
+          <n-layout-sider
+            v-if="isDashboardRouter"
+            bordered
+            show-trigger
+            collapse-mode="width"
+            :collapsed-width="64"
+            :width="240"
+            :native-scrollbar="false"
+            style="max-height: 320px"
+          >
+            <n-menu
+              :collapsed-width="64"
+              :collapsed-icon-size="22"
+              :options="menuOptions"
+              :value="activeMenu"
+              @update:value="handleMenuClick"
+            />
+          </n-layout-sider>
           <n-layout-content class="content">
-            <router-view />
+            <!-- Breadcrumb -->
+            <n-breadcrumb v-if="isDashboardRouter">
+              <n-breadcrumb-item
+                v-for="(item, index) in breadcrumbItems"
+                :key="index"
+              >
+                <RouterLink
+                  v-if="item.path"
+                  :to="item.path"
+                >
+                  {{ item.label }}
+                </RouterLink>
+                <span v-else>{{ item.label }}</span>
+              </n-breadcrumb-item>
+            </n-breadcrumb>
+            <div class="m-px-md m-py-md">
+              <router-view />
+            </div>
           </n-layout-content>
         </n-layout>
       </n-layout>
@@ -72,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import {
   darkTheme,
   NConfigProvider,
@@ -87,10 +125,11 @@ import {
   ManageAccountsOutlined,
 } from "@vicons/material";
 import { useAuthStore } from "@/modules/auth/store";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
 const logout = () => {
   authStore.logout();
@@ -99,6 +138,51 @@ const logout = () => {
 };
 
 const isDark = ref(false);
+const activeMenu = ref("home");
+
+const menuOptions = [
+  {
+    label: 'Home',
+    key: '/dashboard/home',
+  },
+  {
+    label: 'Shop',
+    key: '/dashboard/shop',
+  },
+  {
+    label: 'Card',
+    key: '/dashboard/card',
+  },
+  {
+    label: 'Statistic',
+    key: '/dashboard/statistic',
+  },
+  {
+    label: 'Logs',
+    key: '/dashboard/logs',
+  },
+]
+
+const breadcrumbItems = computed(() => {
+  const matched = route.matched;
+  const items = matched.map((r) => ({
+    label: r.meta?.breadcrumb || r.name || r.path.split("/").pop(),
+    path: r.path !== "" ? r.path : undefined,
+  }));
+  return items;
+});
+
+const isDashboardRouter = computed(() => route.path.startsWith('/dashboard'))
+
+onMounted(() => {
+  // console.log(route.path);
+})
+
+// Xử lý khi click menu
+const handleMenuClick = (key: string) => {
+  activeMenu.value = key;
+  router.push(`${key}`);
+};
 
 const toggleTheme = () => {
   document.body.classList.toggle("dark", isDark.value);
