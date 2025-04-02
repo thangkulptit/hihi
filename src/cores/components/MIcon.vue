@@ -17,8 +17,8 @@ import { NIcon } from 'naive-ui'
 import { AddShoppingCartOutlined } from '@vicons/material'
 
 // Định nghĩa danh sách icon được hỗ trợ
-const icons = {
-  AddShoppingCartOutlined
+const icons: Record<string, any> = {
+  "AddShoppingCartOutlined": AddShoppingCartOutlined
 }
 
 const props = defineProps({
