@@ -13,9 +13,14 @@ export interface Shop {
 export interface CreateShopPayload {
   domain: string;
   callback: string;
-  active: string;
+  active: boolean;
 }
 
+export type UpdateShopPayload = CreateShopPayload 
+export type UpdateShopResponse = {
+  shop: Shop
+} 
+
 export interface FetchShopResponse {
-  data: Shop[];
+  shops: Shop[];
 }
