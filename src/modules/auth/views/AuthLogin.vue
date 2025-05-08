@@ -26,6 +26,7 @@
         >
           <n-input
             v-model:value="form.email"
+            v-trim
             placeholder="Nhập email"
             clearable
           >
@@ -41,6 +42,7 @@
         >
           <n-input
             v-model:value="form.password"
+            v-trim
             type="password"
             show-password-on="click"
             placeholder="Nhập mật khẩu"

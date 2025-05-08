@@ -14,11 +14,16 @@ import { defineProps, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 
 // Chỉ import icon cần thiết
-import { AddShoppingCartOutlined } from '@vicons/material'
+import { AddShoppingCartOutlined, DeleteOutlineRound, EditOutlined, AirplayTwotone, AnnouncementOutlined, ContentCopyFilled } from '@vicons/material'
 
 // Định nghĩa danh sách icon được hỗ trợ
 const icons: Record<string, any> = {
-  "AddShoppingCartOutlined": AddShoppingCartOutlined
+  AddShoppingCartOutlined,
+  DeleteOutlineRound,
+  EditOutlined,
+  AirplayTwotone,
+  AnnouncementOutlined,
+  ContentCopyFilled
 }
 
 const props = defineProps({
@@ -27,8 +32,8 @@ const props = defineProps({
     default: ''
   },
   size: {
-    type: Number,
-    default: 24
+    type: String,
+    default: "24"
   },
   color: {
     type: String,
