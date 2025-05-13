@@ -150,6 +150,7 @@ import { FormRules, useMessage } from 'naive-ui'
 import { ViewMode } from '@/cores/contants/enum';
 import { useShopStore } from '../../stores/shop';
 import { CreateShopPayload, Shop } from '../../types/shop';
+import { copyToClipboard } from '@/cores/utils';
 
 interface Props {
   visibleModal?: boolean,

@@ -82,7 +82,7 @@
           <n-button
             text
             type="primary"
-            @click="$router.push('/auth/register')"
+            @click="router.push('/auth/register')"
           >
             Đăng ký ngay
           </n-button>
@@ -106,8 +106,6 @@ const { t } = useI18n();
 const notify = useMessage();
 const formRef = ref<FormInst | null>(null);
 const loading = ref(false);
-
-console.log(t("label.signIn"))
 
 const form = ref({
   email: "",
