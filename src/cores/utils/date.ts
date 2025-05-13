@@ -1,4 +1,9 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+dayjs.locale('vi'); 
 
 /**
  * Get start day. VD: 00:00:00 of current day
@@ -38,4 +43,8 @@ export function formatDate(date: string, format = 'HH:mm:ss DD/MM/YYYY'): string
  */
 export function unix(): number {
   return dayjs().unix();
+}
+
+export function fromNow(date: string): string {
+  return dayjs(date).fromNow();
 }

@@ -1,4 +1,4 @@
-import { Directive, DirectiveBinding } from 'vue';
+import { Directive } from 'vue';
 
 interface HTMLElementWithTrim extends HTMLElement {
   _trimHandler?: () => void;
@@ -42,7 +42,7 @@ const dispatchInputEvent = (el: HTMLInputElement | HTMLTextAreaElement): void =>
  * Directive v-trim: Tự động xóa khoảng trắng thừa khi blur khỏi input/textarea
  */
 const vTrim: Directive = {
-  mounted(el: HTMLElementWithTrim, binding: DirectiveBinding): void {
+  mounted(el: HTMLElementWithTrim): void {
     const inputEl = getInputElement(el);
     
     if (!inputEl) return;

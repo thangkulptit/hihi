@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import http from "@/cores/api/http";
 import { StatusResponse } from "@/cores/types/http";
 import { CreateShopPayload, FetchShopResponse, Shop, UpdateShopPayload, UpdateShopResponse } from "../types/shop";
-import { delay } from "@/cores/utils";
 
 interface ShopState {
   shops: Shop[];

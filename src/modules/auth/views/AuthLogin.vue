@@ -102,7 +102,7 @@ import type { FormInst } from "naive-ui";
 
 const router = useRouter();
 const authStore = useAuthStore();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 const notify = useMessage();
 const formRef = ref<FormInst | null>(null);
 const loading = ref(false);

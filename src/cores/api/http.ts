@@ -427,8 +427,8 @@ const processQueue = (error: any = null) => {
 http.interceptors.response.use(
   (response) => response,
   async (error: HttpError) => {
+    console.log(error)
     if (!error.config?.url) return Promise.reject(error);
-
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {

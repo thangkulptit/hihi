@@ -35,3 +35,24 @@ export function decodeJWT2(token: string): any {
     return null;
   }
 }
+
+export function toQueryParams(obj: Record<string, any>, prefix = ''): string {
+  const query = Object.entries(obj)
+    .map(([key, value]) => {
+      const fullKey = prefix ? `${prefix}[${key}]` : key;
+
+      if (value === null || value === undefined) {
+        return '';
+      }
+
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        return toQueryParams(value, fullKey);
+      }
+
+      return `${encodeURIComponent(fullKey)}=${encodeURIComponent(value)}`;
+    })
+    .filter(Boolean) // remove empty strings
+    .join('&');
+
+  return query;
+}

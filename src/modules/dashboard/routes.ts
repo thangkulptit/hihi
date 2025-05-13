@@ -1,6 +1,8 @@
 import DashboardHome from "./views/home/DBHome.vue";
-import DashboardCard from "./views/card/DBCard.vue";
+import CardList from "./views/card/CardList.vue";
 import ShopList from "./views/shop/ShopList.vue";
+import Statistic from "./views/statistic/index.vue";
+import LogsList from "./views/logs/LogList.vue";
 
 export default [
   {
@@ -10,9 +12,10 @@ export default [
     component: () => import("@/layouts/LayoutMain.vue"),
     children: [
       { name: "DashboardHome", path: "home", component: DashboardHome, meta: { breadcrumb: "Trang chủ" } },
-      { name: "DashboardCard", path: "card", component: DashboardCard, meta: { breadcrumb: "Thẻ cào" } },
+      { name: "CardList", path: "card", component: CardList, meta: { breadcrumb: "Thẻ cào" } },
       { name: "ShopList", path: "shop", component: ShopList, meta: { breadcrumb: "Shop" }, },
-      // { name: "DashboardCard", path: "card", component: DashboardCard, meta: { breadcrumb: "Card" }, },
+      { name: "Statistic", path: "statistic", component: Statistic, meta: { breadcrumb: "Statistic" }, },
+      { name: "Logs", path: "logs", component: LogsList, meta: { breadcrumb: "Logs" }, },
     ],
   },
 ];

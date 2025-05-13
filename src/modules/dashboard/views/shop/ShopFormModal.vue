@@ -150,7 +150,6 @@ import { FormRules, useMessage } from 'naive-ui'
 import { ViewMode } from '@/cores/contants/enum';
 import { useShopStore } from '../../stores/shop';
 import { CreateShopPayload, Shop } from '../../types/shop';
-import { copyToClipboard, hasValue } from '@/cores/utils';
 
 interface Props {
   visibleModal?: boolean,
@@ -181,7 +180,7 @@ const formValue = reactive<CreateShopPayload>({
   active: props.shop?.active !== undefined ? props.shop?.active : true
 })
 
-watch(showModal, (value, oldValue) => {
+watch(showModal, (value) => {
   emits('update:visibleModal', value)
 })
 

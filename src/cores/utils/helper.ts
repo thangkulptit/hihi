@@ -29,3 +29,11 @@ export async function copyToClipboard(text: string): Promise<void> {
     Console.error(`Failed to copy: `, err)
   }
 }
+
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
