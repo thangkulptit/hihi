@@ -9,6 +9,7 @@
       "@/*": ["src/*"],
       "@auth/*": ["src/modules/auth/*"],
       "@dashboard/*": ["src/modules/dashboard/*"],
+      "@module/*": ["src/modules/*"],
     },
     "esModuleInterop": true,
     "skipLibCheck": true,

@@ -161,6 +161,10 @@ const menuOptions = [
     label: 'Logs',
     key: '/dashboard/logs',
   },
+  {
+    label: 'Vpn Server',
+    key: '/dashboard/vpn-server',
+  },
 ]
 
 const breadcrumbItems = computed(() => {

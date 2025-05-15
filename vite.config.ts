@@ -24,6 +24,7 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, 'src/assets/styles'),
       "@auth": path.resolve(__dirname, 'src/modules/auth'),
       "@dashboard": path.resolve(__dirname, 'src/modules/dashboard'),
+      "@module": path.resolve(__dirname, 'src/modules'),
     }
   },
 });

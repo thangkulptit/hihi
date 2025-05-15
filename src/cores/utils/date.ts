@@ -33,7 +33,7 @@ export function today(): string {
   return dayjs().format('DD-MM-YYYY');
 }
 
-export function formatDate(date: string, format = 'HH:mm:ss DD/MM/YYYY'): string {
+export function formatDate(date: string | Date, format = 'HH:mm:ss DD/MM/YYYY'): string {
   return dayjs(date).format(format)
 }
 
